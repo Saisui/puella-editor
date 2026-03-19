@@ -2,9 +2,8 @@
 
 <template>
   <div class="puella-editor">
-    <pre ref="shower" class="editor-show hljs" spellcheck="false"
-    v-html="codeRendered"
-    />
+    <img>
+    <pre ref="shower" class="editor-show hljs" spellcheck="false" v-html="codeRendered"/>
     <textarea ref="editor" class="editor-edit" v-model="code" @input="update"/>
   </div>
 </template>
@@ -16,7 +15,7 @@ import hljs from 'highlight.js';
 import {tabGoOutput} from "../tab-go.ts";
 import {bindTextInput} from "../bind-text-input.ts";
 import {PuellaKeydownSnippets} from "../snippets/keydown-snippets.ts";
-const { language } = defineProps<{ language?: string }>();
+const { language, background = '#1e1e1e' } = defineProps<{ language?: string, background }>();
 const editor = useTemplateRef('editor');
 const shower = useTemplateRef('shower');
 const code = ref('');
@@ -115,8 +114,9 @@ onMounted(() => {
 .puella-editor {
   position: relative;
   width: 800px;
-  max-width: 90vw;
-  height: max(400px, 70vh);
+  // max-width: 90vw;
+  width: calc(100vw - 20px);
+  height: calc(100vh - 20px);
   & > * {
     position: absolute;
     top: 0; left: 0;
@@ -131,8 +131,16 @@ onMounted(() => {
     width: 100%; height: 100%;
     box-sizing: border-box;
   }
+  & > img {
+    background: v-bind(background);
+    background-size: cover;
+    pointer-events: none;
+  }
   & > .editor-show {
-      background: #1e1e1e;   /* monokai 深色背景 */
+      // background-color: #1e1e1e;   /* monokai 深色背景 */
+      // background-image: url(v-bind(backgroundImage));
+      background: transparent;
+      backdrop-filter: blur(10px) brightness(0.5);
       color: #f8f8f2;         /* 默认文字色 */
       overflow: auto;
       pointer-events: none;   /* 让鼠标穿透 */
