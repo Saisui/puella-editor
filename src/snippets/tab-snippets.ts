@@ -1,3 +1,8 @@
+import ruby from './tab-snippets-ruby'
+import markdown from './tab-snippets-markdown'
+import typescript from './tab-snippets-typescript'
+
+
 function q(strings, ...args) {
   let s = ''
   for (let i in args) {
@@ -39,8 +44,6 @@ type Snippet = {
   goto?: string,
 }
 
-import ruby from './tab-snippets-ruby'
-import markdown from './tab-snippets-markdown'
 
 export const PuellaTabSnippets: Record<string, Snippet[]> = {
   global: [
@@ -110,7 +113,7 @@ export const PuellaTabSnippets: Record<string, Snippet[]> = {
       goto: 'function',
     },
   ],
+  typescript,
   markdown,
   ruby,
-
 }

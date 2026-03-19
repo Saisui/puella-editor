@@ -20,8 +20,17 @@ export function tabGoOutput(preText: string, wherePlace: string, snippetSet = Pu
     moreIndent: indent + '  ',
     lastLine,
     indentMore(offset) {
-      return this.indent + ' '.repeat(offset * 2);
+      return ctx.indent + ' '.repeat(offset * 2);
     }
+  }
+
+  function fixIndent(s) {
+    let lines = s.split("\n")
+    if(lines[0].trim() == '') lines.shift();
+    if(lines.slice(-1)[0].trim() == '') lines.pop();
+    const fake_indent = lines[0].match(/^ */)[0]
+    return lines.map(s => s.replaceAll(new RegExp(`^${fake_indent}`, 'g'), ctx.indent)).join('\n')
+
   }
   function matchGo(snippet) {
     const { match, body } = snippet;
@@ -29,22 +38,22 @@ export function tabGoOutput(preText: string, wherePlace: string, snippetSet = Pu
     if (match.constructor === String && lastLine.slice(-match.length) == match) {
       matched = match;
       if (body.constructor == String) {
-        fragments = (body as String).split('##')
+        fragments = (body as String)
       } else if (body.constructor == Function) {
-        fragments = body([matched], ctx).split('##')
+        fragments = body([matched], ctx)
       }
     } else if (match.constructor === RegExp && (matches = lastLine.match(match)) ) {
       matched = matches[0]
       if(body.constructor === String) {
-        fragments = body.split('##')
+        fragments = body
       } else if (body.constructor === Function) {
-        fragments = (body as Function)(matches, ctx).split('##')
+        fragments = (body as Function)(matches, ctx)
       }
     } else if (match.constructor === Array && (matched = match.find(s => lastLine.slice(-s.length)[0] == s))) {
       if (body.constructor === String) {
-        fragments = body.split('##')
+        fragments = body
       } else if ( body.constructor === Function ) {
-        fragments = (body as Function)([matched], ctx).split('##')
+        fragments = (body as Function)([matched], ctx)
       }
     }
     // return [matched, ret];
@@ -57,5 +66,5 @@ export function tabGoOutput(preText: string, wherePlace: string, snippetSet = Pu
     matchGo(snippet);
     if(matched && fragments) break;
   }
-  return [matched, fragments];
+  return [matched, fixIndent(fragments).split("##")];
 }
