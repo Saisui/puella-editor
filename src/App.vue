@@ -17,7 +17,7 @@ document.body.addEventListener("keydown", (event) => {
 
 <template>
   <PuellaEditor language="ruby" style="height: 900px"/>
-  <h1 style="position: absolute; left: 2vw; opacity: 0.5; top: 10vh; color: white; padding: 10px">{{keypress}}</h1>
-  <h1 style="position: absolute; left: 2vw; opacity: 0.5; top: 15vh; color: white; padding: 10px">{{use}}</h1>
+  <h1 style="position: absolute; left: 2vw; opacity: 0.5; top: 10vh; color: white; padding: 10px; pointer-events: none">{{keypress}}</h1>
+  <h1 style="position: absolute; left: 2vw; opacity: 0.5; top: 15vh; color: white; padding: 10px; pointer-events: none">{{use}}</h1>
 <!--  <TestEditor/>-->
 </template>
