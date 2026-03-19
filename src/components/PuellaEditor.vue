@@ -13,7 +13,7 @@
 import {onMounted, useTemplateRef, ref} from "vue";
 import hljs from 'highlight.js';
 import {tabGoOutput} from "../tab-go.ts";
-import {bindTextInput} from "../bind-text-input.ts";
+import {puellaEditing} from "../puella-text-editing.ts";
 import {PuellaKeydownSnippets} from "../snippets/keydown-snippets.ts";
 const { language, background = '#1e1e1e' } = defineProps<{ language?: string, background }>();
 const editor = useTemplateRef('editor');
@@ -27,7 +27,7 @@ function update(): void {
 }
 
 onMounted(() => {
-  const editing = bindTextInput(editor.value)
+  const editing = puellaEditing(editor.value)
 
   // 同步文本滚动
   editor.value.addEventListener('scroll', () => {
@@ -36,9 +36,10 @@ onMounted(() => {
   });
 
   // debug 打印输入匹配情况
-  editor.value.addEventListener('input', () => {
+  editor.value.addEventListener('input', event => {
     // console.log(tabGoOutput(editing.preText, language ?? 'javascript'))
     editing.nextPositions = editing.nextPositions.map(i => i + 1)
+    console.log(event.data)
   });
 
   // 按下 tab 时，匹配文本，匹配成功则修改文本。
@@ -60,7 +61,7 @@ onMounted(() => {
           }
         }
       }
-      console.log([nextOffsets, editing.nextPositions])
+      // console.log([nextOffsets, editing.nextPositions])
     }
   })
   editor.value.addEventListener('keydown', event => {
@@ -122,7 +123,7 @@ onMounted(() => {
     top: 0; left: 0;
     text-align: left;
     margin: 0;
-    padding: 1rem;
+    padding: min(2vw, 1rem);
     font: 14px 'fira code';
     white-space: pre-wrap;
     border: none;
@@ -152,6 +153,14 @@ onMounted(() => {
       resize: none;
       /* 保留滚动条以保证可滚动 */
       overflow: auto;
+    &::selection {
+      background: rgba(255, 91, 184, 0.6);
+      backdrop-filter: invert(1);
+      text-shadow:
+        1px 1px 2px red,
+        0 0 1em blue,
+        0 0 0.2em blue;
+    }
   }
 }
 </style>
