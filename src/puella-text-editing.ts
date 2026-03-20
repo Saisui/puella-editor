@@ -115,6 +115,10 @@ export class PuellaTextEditing {
     return this.element.value.slice(this.element.selectionStart, this.element.selectionEnd).split("\n")
   }
 
+  select(start = 0, length = 0) {
+    this.element.selectionStart = start;
+    this.element.selectionEnd = start + length;
+  }
   // 移动光标到绝对位置
   moveTo(position: number) {
     const selRange = this.element.selectionEnd - this.element.selectionStart;
@@ -140,9 +144,13 @@ export class PuellaTextEditing {
     this.element.selectionStart += offset;
   }
 
+  /**
+   * 撤回
+   */
   undo(): [number, string] | void {
     if(this.history.length > 0) {
-      const [pos, text] = this.history.pop()
+      const [pos, text] = this.history.pop();
+      // const [pos, text] = this.history.at(this.historyIndex)
       this.element.value = text;
       this.element.selectionStart = pos;
       this.element.selectionEnd = pos;
