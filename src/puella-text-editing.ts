@@ -54,7 +54,7 @@ export class PuellaTextEditing {
     const selStart = ed.selectionStart;
     const selEnd = ed.selectionEnd;
     const preText = this.preText;
-    let postText = this.postText;
+    const postText = this.postText;
 
     // 插入文本
 
