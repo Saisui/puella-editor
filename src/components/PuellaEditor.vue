@@ -15,7 +15,7 @@ import hljs from 'highlight.js';
 import {tabGoOutput} from "../tab-go.ts";
 import {puellaEditing} from "../puella-text-editing.ts";
 import {PuellaKeydownSnippets} from "../snippets/keydown-snippets.ts";
-const { language, background = '#1e1e1e' } = defineProps<{ language?: string, background }>();
+const { language, } = defineProps<{ language?: string, }>();
 const editor = useTemplateRef('editor');
 const shower = useTemplateRef('shower');
 const code = ref('');
@@ -114,27 +114,42 @@ onMounted(() => {
 
 .puella-editor {
   position: relative;
-  width: 800px;
+  //width: 800px;
   // max-width: 90vw;
-  width: calc(100vw - 20px);
-  height: calc(100vh - 20px);
+  //width: calc(100vw - 20px);
+  //height: calc(100vh - 20px);
+  width: 100%;
+  height: 100%;
+  //background: v-bind(background);
+  //background-size: cover;
+  //padding: min(1vw, 1rem);
+  /* 试试 grid，让父元素 的 padding 生效 */
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  box-sizing: border-box;
+  caret-color: white;
+  //color: #f8f8f2;         /* 默认文字色 */
+
   & > * {
     position: absolute;
     top: 0; left: 0;
     text-align: left;
     margin: 0;
-    padding: min(2vw, 1rem);
     font: 14px 'fira code';
     white-space: pre-wrap;
     border: none;
     outline: none;
     /* font: 14px/1.5 'Courier New', monospace; */
     width: 100%; height: 100%;
-    box-sizing: border-box;
+    //box-sizing: border-box;
+    /* grid 如上 */
+    grid-column: 1;
+    grid-row: 1;
   }
   & > img {
-    background: v-bind(background);
-    background-size: cover;
+    //background: v-bind(background);
+    //background-size: cover;
     pointer-events: none;
   }
   & > .editor-show {
@@ -149,7 +164,6 @@ onMounted(() => {
   & > .editor-edit {
       background: transparent;
       color: transparent;
-      caret-color: white;
       resize: none;
       /* 保留滚动条以保证可滚动 */
       overflow: auto;
