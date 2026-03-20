@@ -2,7 +2,22 @@
 
 一个源码简单、可理解、有中文注释的代码编辑器（code editor）。
 
-- 函数短语
+# 使用
+
+```html
+<script setup>
+import PuellaEditor from 'PuellaEditor'
+</script>
+<template>
+  <div class="editor" style="width: calc(100vw - 20px); height: calc(100vh - 20px)">
+      <PuellaEditor
+        language="typescript" <!-- 设定语言，指定语法高亮和短语集 -->
+        background="url(/madoka.jpg) no-repeat center" <!-- 背景图 -->
+      />
+  </div>
+</template>
+```
+
 
 ## 特色功能:
 
