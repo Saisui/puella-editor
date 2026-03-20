@@ -23,9 +23,7 @@ type Snippets = {
   // 生成的片段
   body:
     | string
-    | ((matcheds: string[], // 所匹配的文本，即 string.match() 的返回值
-        ctx: object, // 上下文
-      ) => string)
+    | Function<[matcheds: string, ctx: object], string>
 }
 ```
 

@@ -40,8 +40,12 @@ const htmlTags = [
 
 type Snippet = {
   match: string | RegExp | (string | RegExp)[],
-  body: string | ((matches: string[], preset: object) => string),
+  body:
+    | string
+    | ((matches: string[], preset: object) => string),
   goto?: string,
+  context?: string,
+  language?: string,
 }
 
 
