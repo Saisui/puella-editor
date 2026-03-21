@@ -1,5 +1,7 @@
 # Puella Text Editor
 
+![preview__puella-editor.jpg](public/preview__puella-editor.jpg)
+
 一个源码简单、可理解、有中文注释的代码编辑器（code editor）。
 
 # 使用
