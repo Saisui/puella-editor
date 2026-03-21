@@ -21,8 +21,7 @@ import PuellaEditor from 'PuellaEditor'
         /* 让背景模糊 */
         backdrop-filter: blur(10px) brightness(0.5)
         padding: 10px;
-    " 
-    />
+    "/>
   </div>
 </template>
 ```
