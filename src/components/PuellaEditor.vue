@@ -24,8 +24,36 @@ function update(): void {
      // || placeholder
 }
 
+
 onMounted(() => {
   const editing = puellaEditing(editor.value)
+
+  function tabDo(): void {
+    editing.nextPositions = []
+    const [matched, inserted] = tabGoOutput(editing.preText, language ?? 'javascript')
+    // console.log(inserted)
+    editing.insertText(inserted.join(''), matched.length, - inserted.slice(1).join('').length);
+    editing.nextPositions = []
+    const nextOffsets = inserted.slice(1, -1).map(s => s.length)
+    if(nextOffsets.length > 1) {
+      for (const i in nextOffsets) {
+        if (i == 0) {
+          editing.nextPositions.push(editing.position + nextOffsets[i])
+        } else {
+          editing.nextPositions.push(editing.nextPositions[i - 1] + nextOffsets[i])
+        }
+      }
+    }
+  }
+
+  function enterDo(): void {
+    if(editing.nextPositions.length) {
+      // console.log(editing.nextPositions[0])
+      editing.goNext()
+    } else {
+      editing.insertText('\n'+editing.lastLineIndent)
+    }
+  }
 
   // 同步文本滚动
   editor.value.addEventListener('scroll', () => {
@@ -44,24 +72,15 @@ onMounted(() => {
   editor.value.addEventListener('keydown', event => {
     if(event.key == 'Tab') {
       event.preventDefault();
-      editing.nextPositions = []
-      const [matched, inserted] = tabGoOutput(editing.preText, language ?? 'javascript')
-      // console.log(inserted)
-      editing.insertText(inserted.join(''), matched.length, - inserted.slice(1).join('').length);
-      editing.nextPositions = []
-      const nextOffsets = inserted.slice(1, -1).map(s => s.length)
-      if(nextOffsets.length > 1) {
-        for (const i in nextOffsets) {
-          if (i == 0) {
-            editing.nextPositions.push(editing.position + nextOffsets[i])
-          } else {
-            editing.nextPositions.push(editing.nextPositions[i - 1] + nextOffsets[i])
-          }
-        }
-      }
+      tabDo();
       // console.log([nextOffsets, editing.nextPositions])
     }
   })
+
+  editor.value.addEventListener('touchstart', event => {
+    if(event.touches.length == 3) tabDo();
+  })
+
   editor.value.addEventListener('keydown', event => {
     if(!event.ctrlKey && PuellaKeydownSnippets.global.find(snip => event.key == snip.match)) {
       event.preventDefault();
@@ -76,12 +95,7 @@ onMounted(() => {
     // if(PuellaKeydownSnippets.global.find(snip => editing.lastLine.slice(- snip.match.length) == snip.match)) {
     if(event.key=='Enter') {
       event.preventDefault();
-      if(editing.nextPositions.length) {
-        // console.log(editing.nextPositions[0])
-        editing.goNext()
-      } else {
-        editing.insertText('\n'+editing.lastLineIndent)
-      }
+      enterDo();
     }
   })
   // editor.value.addEventListener('keydown', event => {
