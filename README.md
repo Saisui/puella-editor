@@ -16,6 +16,7 @@ import PuellaEditor from 'PuellaEditor'
         background-size: cover;
   ">
     <PuellaEditor language="typescript" <!-- 设定语言，指定语法高亮和短语集 -->
+      placeholder="点击编辑..."
       style="
         /* 让背景模糊 */
         backdrop-filter: blur(10px) brightness(0.5)

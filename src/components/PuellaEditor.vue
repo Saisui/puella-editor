@@ -2,8 +2,8 @@
 
 <template>
   <div class="puella-editor">
-    <pre ref="shower" class="editor-show hljs" spellcheck="false" v-html="codeRendered"/>
-    <textarea ref="editor" class="editor-edit" v-model="code" @input="update"/>
+    <pre ref="shower" class="editor-show hljs" spellcheck="false" v-html="codeRendered" contenteditable="true"/>
+    <textarea ref="editor" class="editor-edit" v-model="code" @input="update" :placeholder/>
   </div>
 </template>
 
@@ -14,15 +14,14 @@ import hljs from 'highlight.js';
 import {tabGoOutput} from "../tab-go.ts";
 import {puellaEditing} from "../puella-text-editing.ts";
 import {PuellaKeydownSnippets} from "../snippets/keydown-snippets.ts";
-const { language, } = defineProps<{ language?: string, }>();
+const { language, placeholder = 'edit...' } = defineProps<{ language?: string, placeholder: string}>();
 const editor = useTemplateRef('editor');
 const shower = useTemplateRef('shower');
 const code = ref('');
 const codeRendered = ref('')
 function update(): void {
-  codeRendered.value = language
-    ? (hljs.highlight(code.value, { language }).value + `\n`)
-    : (hljs.highlightAuto(code.value).value + `\n`)
+  codeRendered.value = language ? (hljs.highlight(code.value, { language }).value + `\n`) : (hljs.highlightAuto(code.value).value + `\n`)
+     // || placeholder
 }
 
 onMounted(() => {

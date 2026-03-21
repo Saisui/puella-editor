@@ -17,7 +17,7 @@ document.body.addEventListener("keydown", (event) => {
 <template>
   <div class="editor"
        style="
-          width: calc(100vw - 40px); height: calc(100vh - 40px);
+          width: calc(100vw - 20px); height: calc(100vh - 20px);
           background: url(/puella-magic.webp) no-repeat center;
           background-size: cover;
   ">
