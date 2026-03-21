@@ -20,10 +20,9 @@ document.body.addEventListener("keydown", (event) => {
           width: calc(100vw - 40px); height: calc(100vh - 40px);
           background: url(/puella-magic.webp) no-repeat center;
           background-size: cover;
-          padding: min(2vw, 10px);
   ">
     <PuellaEditor language="typescript"
-                  style="backdrop-filter: blur(10px) brightness(0.5);"
+                  style="backdrop-filter: blur(10px) brightness(0.5); padding: min(2vw, 10px);"
     />
   </div>
   <h1 style="position: absolute; left: 2vw; opacity: 0.5; top: 10vh; color: white; padding: 10px; pointer-events: none">{{keypress}}</h1>
