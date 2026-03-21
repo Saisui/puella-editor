@@ -9,11 +9,14 @@
 import PuellaEditor from 'PuellaEditor'
 </script>
 <template>
-  <div class="editor" style="width: calc(100vw - 20px); height: calc(100vh - 20px)">
-      <PuellaEditor
-        language="typescript" <!-- 设定语言，指定语法高亮和短语集 -->
-        background="url(/madoka.jpg) no-repeat center" <!-- 背景图 -->
-      />
+  <div class="editor" style="
+      width: calc(100vw - 20px); height: calc(100vh - 20px);
+           padding: 10px;
+           background: url(/puella-magic.webp) no-repeat center; background-size: cover;
+  ">
+    <PuellaEditor language="typescript" <!-- 设定语言，指定语法高亮和短语集 -->
+      style="backdrop-filter: blur(10px) brightness(0.5)" <!-- 让背景模糊 -->
+    />
   </div>
 </template>
 ```

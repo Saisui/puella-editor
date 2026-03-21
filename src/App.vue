@@ -15,14 +15,17 @@ document.body.addEventListener("keydown", (event) => {
 </script>
 
 <template>
+  <div class="editor"
+       style="
+          width: calc(100vw - 40px); height: calc(100vh - 40px);
+          background: url(/puella-magic.webp) no-repeat center;
+          background-size: cover;
+          padding: min(2vw, 10px);
+  ">
     <PuellaEditor language="typescript"
-                  style="
-                          width: calc(100vw - 45px); height: calc(100vh - 45px);
-                          background: url(/puella-magic.webp) no-repeat center;
-                          background-size: cover;
-                          padding: min(2vw, 10px)
-                  "
+                  style="backdrop-filter: blur(10px) brightness(0.5);"
     />
+  </div>
   <h1 style="position: absolute; left: 2vw; opacity: 0.5; top: 10vh; color: white; padding: 10px; pointer-events: none">{{keypress}}</h1>
   <h1 style="position: absolute; left: 2vw; opacity: 0.5; top: 15vh; color: white; padding: 10px; pointer-events: none">{{use}}</h1>
 </template>

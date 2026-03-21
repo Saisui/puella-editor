@@ -2,7 +2,6 @@
 
 <template>
   <div class="puella-editor">
-    <img>
     <pre ref="shower" class="editor-show hljs" spellcheck="false" v-html="codeRendered"/>
     <textarea ref="editor" class="editor-edit" v-model="code" @input="update"/>
   </div>
@@ -156,7 +155,7 @@ onMounted(() => {
       // background-color: #1e1e1e;   /* monokai 深色背景 */
       // background-image: url(v-bind(backgroundImage));
       background: transparent;
-      backdrop-filter: blur(10px) brightness(0.5);
+      //backdrop-filter: blur(10px) brightness(0.5);
       color: #f8f8f2;         /* 默认文字色 */
       overflow: auto;
       pointer-events: none;   /* 让鼠标穿透 */
