@@ -12,7 +12,6 @@ import PuellaEditor from 'PuellaEditor'
   <div class="editor" style="
         width: calc(100vw - 20px);
         height: calc(100vh - 20px);
-
         background: url(/puella-magic.webp) no-repeat center;
         background-size: cover;
   ">
