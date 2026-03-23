@@ -95,12 +95,8 @@ export default [
   },
   {
     match: 'while',
-    body: (_, $) => `while (##) {\n${$.moreIndent}##\n${$.indent}}\n`
-  },
-  {
-    match: 'for i',
     body: (_, $) => `
-    for (let i = 0; ##; ##) {
+    while (##) {
       ##
     }`
   },
@@ -181,4 +177,11 @@ export default [
     }
     `
   },
+  {
+    match: 'do',
+    body: `
+    (()=>{
+      ##
+    })()`
+  }
 ]
