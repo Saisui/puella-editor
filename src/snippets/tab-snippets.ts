@@ -39,6 +39,8 @@ const htmlTags = [
 ];
 
 type Snippet = {
+  name?: string,
+  description?: string,
   match: string | RegExp | (string | RegExp)[],
   body:
     | string
