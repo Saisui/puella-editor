@@ -178,6 +178,7 @@ export default [
     `
   },
   {
+    name: 'block do scope',
     match: 'do',
     body: `
     (()=>{
